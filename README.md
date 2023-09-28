@@ -11,7 +11,7 @@ First, install the dependencies:
 npm install
 ```
 
-Prepare your [.env.local](.env.local) file. It should look like this:
+Prepare your [.env.local](.env.local) file. You can copy from [.env.local.example](.env.local.example) file. Basicaly it should look like this:
 
 ```text
 NEXT_PUBLIC_GIPHY_API_KEY={YOUR_API_KEY}
