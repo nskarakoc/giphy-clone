@@ -1,10 +1,9 @@
-import { Gif } from '@/domains/giphy/gif';
 import { GifSearchResult } from '@/domains/giphy/gifSearchResult';
 import { GiphyServiceError } from '@/errors/giphy/giphyServiceError';
 import axios, { AxiosError, Method } from 'axios';
 
 const API_URL = 'https://api.giphy.com';
-const API_KEY = process.env.NEXT_PUBLIC_GIPHY_API_KEY;
+const API_KEY = process.env.GIPHY_API_KEY;
 
 export class GiphyService {
   private axiosInstance = axios.create({
@@ -32,6 +31,7 @@ export class GiphyService {
         url: `${API_URL}${path}`,
       });
     } catch (error) {
+      console.log(error instanceof AxiosError ? error.message : undefined);
       throw new GiphyServiceError(
         error instanceof AxiosError ? error.message : undefined,
       );
@@ -43,18 +43,18 @@ export class GiphyService {
   async searchGifs({
     limit,
     offset,
-    searchText,
+    q,
   }: {
     limit?: number;
     offset?: number;
-    searchText: string;
+    q: string;
   }): Promise<GifSearchResult> {
     return this.callApi({
       method: 'GET',
       params: {
         limit,
         offset,
-        q: searchText,
+        q,
       },
       path: '/v1/gifs/search',
     });

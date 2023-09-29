@@ -2,9 +2,9 @@ import InputComponent from '@/components/generic/inputComponent';
 import GifComponent from '@/components/giphy/gifComponent';
 import { Gif } from '@/domains/giphy/gif';
 import { Pagination } from '@/domains/giphy/pagination';
-import { GiphyServiceError } from '@/errors/giphy/giphyServiceError';
-import { giphyService } from '@/services/giphyService';
+import { GifSearchResponse } from '@/domains/giphyClone/api/gifSearchResponse';
 import Logger from '@/util/logger';
+import axios from 'axios';
 import { debounce } from 'lodash';
 import { useEffect, useMemo, useState } from 'react';
 import InfiniteScroll from 'react-infinite-scroll-component';
@@ -38,14 +38,21 @@ export default function HomePage() {
             'offset:',
             offset,
           );
-          searchResult = await giphyService.searchGifs({
-            limit,
-            offset,
-            searchText: textToSearch,
+          const response = await axios.request<GifSearchResponse>({
+            data: {
+              limit,
+              offset,
+              q: textToSearch,
+            },
+            method: 'POST',
+            url: '/api/giphy/gifs/search',
           });
+          searchResult = response.data;
           Logger.debug('Search result:', searchResult);
         } catch (error) {
-          if (error instanceof GiphyServiceError) {
+          const e = (error as any).response.data;
+
+          if (e) {
             Logger.error('Failed to search for gifs:', error);
             return;
           }
