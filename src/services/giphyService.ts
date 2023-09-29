@@ -31,7 +31,6 @@ export class GiphyService {
         url: `${API_URL}${path}`,
       });
     } catch (error) {
-      console.log(error instanceof AxiosError ? error.message : undefined);
       throw new GiphyServiceError(
         error instanceof AxiosError ? error.message : undefined,
       );

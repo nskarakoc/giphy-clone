@@ -6,8 +6,8 @@ export default function GifComponent({ gif }: { gif: Gif }) {
     <Image
       alt={gif.title}
       src={gif.images.original.url}
-      width={parseInt(gif.images.original.width)}
-      height={parseInt(gif.images.original.height)}
+      width={parseInt(gif.images.original.width, 10)}
+      height={parseInt(gif.images.original.height, 10)}
     />
   );
 }

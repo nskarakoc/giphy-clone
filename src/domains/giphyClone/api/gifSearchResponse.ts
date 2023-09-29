@@ -1,3 +1,3 @@
-import { GifSearchResult } from "@/domains/giphy/gifSearchResult";
+import { GifSearchResult } from '@/domains/giphy/gifSearchResult';
 
 export type GifSearchResponse = GifSearchResult;

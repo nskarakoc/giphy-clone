@@ -3,10 +3,13 @@
   "version": "0.1.0",
   "private": true,
   "scripts": {
-    "dev": "next dev",
     "build": "next build",
-    "start": "next start",
-    "lint": "next lint"
+    "dev": "next dev",
+    "fix": "npm run fix-formatting && npm run fix-lint && tsc",
+    "fix-lint": "npx eslint --fix './**/*.{js,ts,tsx}'",
+    "fix-formatting": "npx prettier --write './**/*.{js,md,tsx,ts}'",
+    "lint": "next lint",
+    "start": "next start"
   },
   "dependencies": {
     "axios": "^1.5.1",
@@ -21,9 +24,14 @@
     "@types/node": "latest",
     "@types/react": "latest",
     "@types/react-dom": "latest",
+    "@typescript-eslint/eslint-plugin": "^6.7.3",
+    "@typescript-eslint/parser": "^6.7.3",
     "autoprefixer": "latest",
     "eslint": "latest",
+    "eslint-config-airbnb": "^19.0.4",
     "eslint-config-next": "latest",
+    "eslint-config-prettier": "^9.0.0",
+    "eslint-plugin-prettier": "^5.0.0",
     "postcss": "latest",
     "tailwindcss": "latest",
     "typescript": "latest"
